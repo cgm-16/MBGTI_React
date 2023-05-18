@@ -10958,7 +10958,6 @@ html {
 }
 
 #resultimg {
-  /* position: absolute; */
   display: block;
   width: 100vw;
   height: auto;

@@ -134,7 +134,6 @@ html {
 }
 
 #resultimg {
-    /* position: absolute; */
     display: block;
     width: 100vw;
     height: auto;
@@ -247,7 +246,8 @@ html {
     border-radius: 10px;
 }
 
-@media all and (max-width: 768px){
+@media all and (max-width: 768px) {
+
     /*공통*/
     html {
         font-size: 50%;
@@ -276,6 +276,7 @@ html {
         width: 100vw;
         height: 100vmax;
     }
+
     #probbox {
         font-size: 3.6rem;
         line-height: 4.2rem;
@@ -302,6 +303,7 @@ html {
     #playerbtn {
         font-size: 3.6rem;
     }
+
     #pmpsbtn {
         font-size: 2.4rem;
     }
@@ -311,7 +313,8 @@ html {
     }
 }
 
-@media all and (max-width: 375px){
+@media all and (max-width: 375px) {
+
     /*공통*/
     html {
         font-size: 35%;

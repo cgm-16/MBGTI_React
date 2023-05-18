@@ -65,6 +65,13 @@ const ResultLink = ({ ytURL, btnColor }: { ytURL: string, btnColor: string }) =>
 
 const WatchFullLink = ({ btnColor }: { btnColor: string }) => <a id="pmpsbtn" className="btn" href="https://youtu.be/9IdUFmko0pY" target="_blank" rel='noreferrer' style={{ backgroundColor: btnColor }}>시청하러 가기</a>
 
+function ShareBtn({ id, imgSrc, clickAction, altTxt } : {id: string, imgSrc: string, clickAction: React.MouseEventHandler, altTxt: string}){
+return (
+    <div id={id} onClick={clickAction}>
+      <img src={imgSrc} alt={altTxt} className="linkbtn" />
+    </div>);
+}
+
 function StartPg({ onStartPgChange }: { onStartPgChange: React.MouseEventHandler }) {
   return (
     <article id='startPg'>
@@ -97,17 +104,71 @@ function MBGTI({ prob, onOptionA, onOptionB }: { prob: number, onOptionA: React.
 }
 
 function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnColor: string }) {
+  const url_default_ks = "https://story.kakao.com/share?url=";
+  const url_default_fb = "https://www.facebook.com/sharer/sharer.php?u=";
+  const url_default_tw_txt = "https://twitter.com/intent/tweet?text="; 
+  const url_default_tw_url = "&url=";
+  const url_this_page = document.location.href;
+  const url_combine_ks = url_default_ks + url_this_page; 
+  const url_combine_fb = url_default_fb + url_this_page;
+  const url_combine_tw = url_default_tw_txt + document.title + url_default_tw_url + url_this_page;
+  const url_combine_naver = "https://cafe.naver.com/ca-fe/cafes/29359582/menus/134/articles/write?boardType=L";
+  const customOption = 'scrollbars=no, width=600, height=600';
+
+  function copylink() {
+    navigator.clipboard.writeText("https://pmps-luv-mbgti.netlify.app/");
+    alert('성공적으로 저장되었습니다.')
+  }
+
+  function share(strUrl: string, strOptions?: string) {
+    if ( typeof window.open === "function") {
+        window.open(strUrl, "_blank", strOptions);
+    } else {
+        document.location.href = strUrl;
+    }
+  }
+
   return (
     <article id='result'>
       <div id="results">
         <ResultImg rURL={rURL} />
-
         <div id="playerbtnpoz">
           <ResultLink ytURL={ytURL} btnColor={btnColor} />
         </div>
-
         <div id="pmpsbtnpoz">
           <WatchFullLink btnColor={btnColor} />
+        </div>
+        <div id="sharebox">
+          <ShareBtn
+            id='fb'
+            imgSrc='./sharebtn/fb.png'
+            clickAction={() => share(url_combine_fb, customOption)}
+            altTxt='페이스북으로 공유하기'
+          />
+          <ShareBtn
+            id='twt'
+            imgSrc='./sharebtn/twt.png'
+            clickAction={() => share(url_combine_tw, customOption)}
+            altTxt='트위터로 공유하기'
+          />
+          <ShareBtn
+            id='nv'
+            imgSrc='./sharebtn/nv.png'
+            clickAction={() => share(url_combine_naver)}
+            altTxt='네이버로 공유하기'
+          />
+          <ShareBtn
+            id='ks'
+            imgSrc='./sharebtn/ks.png'
+            clickAction={() => share(url_combine_ks, customOption)}
+            altTxt='카카오스토리로 공유하기'
+          />
+          <ShareBtn
+            id='lk'
+            imgSrc='./sharebtn/link.png'
+            clickAction={() => copylink()}
+            altTxt='복사하기'
+          />
         </div>
       </div>
     </article>
