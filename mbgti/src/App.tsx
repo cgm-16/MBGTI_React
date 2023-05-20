@@ -1,6 +1,4 @@
-import React, { useTransition } from 'react';
-import { useState } from 'react';
-import { useReducer } from 'react';
+import React, { useTransition, useState, useReducer } from 'react';
 
 type PageAction = { type: 'Next' } | { type: 'Start' };
 
