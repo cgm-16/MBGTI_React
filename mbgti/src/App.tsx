@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 import { useState } from 'react';
 import { useReducer } from 'react';
+import { Spinner } from 'react-bootstrap';
 
 type PageAction = { type: 'Next' } | { type: 'Start' };
 
@@ -104,12 +105,10 @@ function MBGTI({ prob, onOptionA, onOptionB }: { prob: number, onOptionA: React.
 }
 
 function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnColor: string }) {
-  const url_default_ks = "https://story.kakao.com/share?url=";
   const url_default_fb = "https://www.facebook.com/sharer/sharer.php?u=";
   const url_default_tw_txt = "https://twitter.com/intent/tweet?text="; 
   const url_default_tw_url = "&url=";
   const url_this_page = document.location.href;
-  const url_combine_ks = url_default_ks + url_this_page; 
   const url_combine_fb = url_default_fb + url_this_page;
   const url_combine_tw = url_default_tw_txt + document.title + url_default_tw_url + url_this_page;
   const url_combine_naver = "https://cafe.naver.com/ca-fe/cafes/29359582/menus/134/articles/write?boardType=L";
@@ -158,12 +157,6 @@ function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnC
             altTxt='네이버로 공유하기'
           />
           <ShareBtn
-            id='ks'
-            imgSrc='./sharebtn/ks.png'
-            clickAction={() => share(url_combine_ks, customOption)}
-            altTxt='카카오스토리로 공유하기'
-          />
-          <ShareBtn
             id='lk'
             imgSrc='./sharebtn/link.png'
             clickAction={() => copylink()}
@@ -176,6 +169,7 @@ function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnC
 }
 
 export default function App() {
+  const [isPending, startTransition] = useTransition();
   const [page, changePage] = useReducer(pageReducer, 0)
   const [vUrl, setVUrl] = useState('');
   const [gUrl, setGUrl] = useState('');
@@ -184,50 +178,51 @@ export default function App() {
   const [ans, setAns] = useState([] as boolean[]);
 
   function choose(choice: boolean) {
-    if (prob < quizQuestions.length - 1) {
-      setProb(prob + 1);
-      setAns(ans.concat([choice]));
-    } else {
-      const newAns = ans.concat([choice])
-      const j = newAns.slice(0, 3).reduce((c, e) => c + (true === e ? 1 : 0), 0)
-      const c = newAns.slice(3, 6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
-      const ch = newAns.slice(6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
-
-      const isYp = j >= 2 ? true : false;
-      const isCharge = ch >= 2 ? true : false;
-      const isCool = c >= 2 ? true : false;
-
-      setBtnColor(isYp ? "#94C9CD" : "#FE8D06");
-      console.log(isYp, isCharge, isCool, newAns);
-
-      if (!isYp && isCharge && isCool) {
-        setVUrl(vidUrls[0]);
-        setGUrl(gunUrls[0]);
-      } else if (!isYp && isCharge && !isCool) {
-        setVUrl(vidUrls[1]);
-        setGUrl(gunUrls[1]);
-      } else if (!isYp && !isCharge && isCool) {
-        setVUrl(vidUrls[2]);
-        setGUrl(gunUrls[2]);
-      } else if (!isYp && !isCharge && !isCool) {
-        setVUrl(vidUrls[3]);
-        setGUrl(gunUrls[3]);
-      } else if (isYp && isCharge && isCool) {
-        setVUrl(vidUrls[4]);
-        setGUrl(gunUrls[4]);
-      } else if (isYp && isCharge && !isCool) {
-        setVUrl(vidUrls[5]);
-        setGUrl(gunUrls[5]);
-      } else if (isYp && !isCharge && isCool) {
-        setVUrl(vidUrls[6]);
-        setGUrl(gunUrls[6]);
+    startTransition(() => {
+      if (prob < quizQuestions.length - 1) {
+        setProb(prob + 1);
+        setAns(ans.concat([choice]));
       } else {
-        setVUrl(vidUrls[7]);
-        setGUrl(gunUrls[7]);
+        const newAns = ans.concat([choice])
+        const j = newAns.slice(0, 3).reduce((c, e) => c + (true === e ? 1 : 0), 0)
+        const c = newAns.slice(3, 6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
+        const ch = newAns.slice(6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
+  
+        const isYp = j >= 2 ? true : false;
+        const isCharge = ch >= 2 ? true : false;
+        const isCool = c >= 2 ? true : false;
+  
+        setBtnColor(isYp ? "#94C9CD" : "#FE8D06");
+  
+        if (!isYp && isCharge && isCool) {
+          setVUrl(vidUrls[0]);
+          setGUrl(gunUrls[0]);
+        } else if (!isYp && isCharge && !isCool) {
+          setVUrl(vidUrls[1]);
+          setGUrl(gunUrls[1]);
+        } else if (!isYp && !isCharge && isCool) {
+          setVUrl(vidUrls[2]);
+          setGUrl(gunUrls[2]);
+        } else if (!isYp && !isCharge && !isCool) {
+          setVUrl(vidUrls[3]);
+          setGUrl(gunUrls[3]);
+        } else if (isYp && isCharge && isCool) {
+          setVUrl(vidUrls[4]);
+          setGUrl(gunUrls[4]);
+        } else if (isYp && isCharge && !isCool) {
+          setVUrl(vidUrls[5]);
+          setGUrl(gunUrls[5]);
+        } else if (isYp && !isCharge && isCool) {
+          setVUrl(vidUrls[6]);
+          setGUrl(gunUrls[6]);
+        } else {
+          setVUrl(vidUrls[7]);
+          setGUrl(gunUrls[7]);
+        }
+  
+        changePage({ type: 'Next' });
       }
-
-      changePage({ type: 'Next' });
-    }
+    })
   }
 
   return (
