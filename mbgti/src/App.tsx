@@ -1,7 +1,6 @@
 import React, { useTransition } from 'react';
 import { useState } from 'react';
 import { useReducer } from 'react';
-import { Spinner } from 'react-bootstrap';
 
 type PageAction = { type: 'Next' } | { type: 'Start' };
 
