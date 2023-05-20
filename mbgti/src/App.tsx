@@ -1,4 +1,7 @@
-import React, { useTransition, useState, useReducer } from 'react';
+import React, { useTransition } from 'react';
+import { useState } from 'react';
+import { useReducer } from 'react';
+import { MoonLoader } from 'react-spinners';
 
 type PageAction = { type: 'Next' } | { type: 'Start' };
 
@@ -166,7 +169,6 @@ function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnC
 }
 
 export default function App() {
-  // eslint-disable-next-line
   const [isPending, startTransition] = useTransition();
   const [page, changePage] = useReducer(pageReducer, 0)
   const [vUrl, setVUrl] = useState('');
@@ -176,59 +178,55 @@ export default function App() {
   const [ans, setAns] = useState([] as boolean[]);
 
   function choose(choice: boolean) {
-    startTransition(() => {
-      if (prob < quizQuestions.length - 1) {
-        setProb(prob + 1);
-        setAns(ans.concat([choice]));
+    if (prob < quizQuestions.length - 1) {
+      setProb(prob + 1);
+      setAns(ans.concat([choice]));
+    } else {
+      const newAns = ans.concat([choice])
+      const j = newAns.slice(0, 3).reduce((c, e) => c + (true === e ? 1 : 0), 0)
+      const c = newAns.slice(3, 6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
+      const ch = newAns.slice(6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
+
+      const isYp = j >= 2 ? true : false;
+      const isCharge = ch >= 2 ? true : false;
+      const isCool = c >= 2 ? true : false;
+
+      setBtnColor(isYp ? "#94C9CD" : "#FE8D06");
+      console.log(isYp, isCharge, isCool, newAns);
+
+      if (!isYp && isCharge && isCool) {
+        setVUrl(vidUrls[0]);
+        setGUrl(gunUrls[0]);
+      } else if (!isYp && isCharge && !isCool) {
+        setVUrl(vidUrls[1]);
+        setGUrl(gunUrls[1]);
+      } else if (!isYp && !isCharge && isCool) {
+        setVUrl(vidUrls[2]);
+        setGUrl(gunUrls[2]);
+      } else if (!isYp && !isCharge && !isCool) {
+        setVUrl(vidUrls[3]);
+        setGUrl(gunUrls[3]);
+      } else if (isYp && isCharge && isCool) {
+        setVUrl(vidUrls[4]);
+        setGUrl(gunUrls[4]);
+      } else if (isYp && isCharge && !isCool) {
+        setVUrl(vidUrls[5]);
+        setGUrl(gunUrls[5]);
+      } else if (isYp && !isCharge && isCool) {
+        setVUrl(vidUrls[6]);
+        setGUrl(gunUrls[6]);
       } else {
-        const newAns = ans.concat([choice])
-        const j = newAns.slice(0, 3).reduce((c, e) => c + (true === e ? 1 : 0), 0)
-        const c = newAns.slice(3, 6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
-        const ch = newAns.slice(6).reduce((c, e) => c + (true === e ? 1 : 0), 0)
-  
-        const isYp = j >= 2 ? true : false;
-        const isCharge = ch >= 2 ? true : false;
-        const isCool = c >= 2 ? true : false;
-  
-        setBtnColor(isYp ? "#94C9CD" : "#FE8D06");
-  
-        if (!isYp && isCharge && isCool) {
-          setVUrl(vidUrls[0]);
-          setGUrl(gunUrls[0]);
-        } else if (!isYp && isCharge && !isCool) {
-          setVUrl(vidUrls[1]);
-          setGUrl(gunUrls[1]);
-        } else if (!isYp && !isCharge && isCool) {
-          setVUrl(vidUrls[2]);
-          setGUrl(gunUrls[2]);
-        } else if (!isYp && !isCharge && !isCool) {
-          setVUrl(vidUrls[3]);
-          setGUrl(gunUrls[3]);
-        } else if (isYp && isCharge && isCool) {
-          setVUrl(vidUrls[4]);
-          setGUrl(gunUrls[4]);
-        } else if (isYp && isCharge && !isCool) {
-          setVUrl(vidUrls[5]);
-          setGUrl(gunUrls[5]);
-        } else if (isYp && !isCharge && isCool) {
-          setVUrl(vidUrls[6]);
-          setGUrl(gunUrls[6]);
-        } else {
-          setVUrl(vidUrls[7]);
-          setGUrl(gunUrls[7]);
-        }
-  
-        changePage({ type: 'Next' });
+        setVUrl(vidUrls[7]);
+        setGUrl(gunUrls[7]);
       }
-    })
+      startTransition(() => changePage({ type: 'Next' }));
+    }
   }
 
   return (
     <>
-      {page === 0 && <StartPg onStartPgChange={() => changePage({
-        type
-          : 'Next'
-      })} />}
+      {isPending && <MoonLoader />}
+      {page === 0 && <StartPg onStartPgChange={() => startTransition(() => changePage({ type: 'Next' }))} />}
       {page === 1 && <MBGTI prob={prob} onOptionA={() => choose(true)} onOptionB={() => choose(false)} />}
       {page === 2 && <ResultPg rURL={gUrl} ytURL={vUrl} btnColor={btnColor} />}
     </>
