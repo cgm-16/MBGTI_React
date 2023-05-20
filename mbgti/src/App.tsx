@@ -1,7 +1,6 @@
 import React, { useTransition } from 'react';
 import { useState } from 'react';
 import { useReducer } from 'react';
-import { MoonLoader } from 'react-spinners';
 
 type PageAction = { type: 'Next' } | { type: 'Start' };
 
@@ -169,6 +168,7 @@ function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnC
 }
 
 export default function App() {
+  // eslint-disable-next-line
   const [isPending, startTransition] = useTransition();
   const [page, changePage] = useReducer(pageReducer, 0)
   const [vUrl, setVUrl] = useState('');
@@ -225,7 +225,6 @@ export default function App() {
 
   return (
     <>
-      {isPending && <MoonLoader />}
       {page === 0 && <StartPg onStartPgChange={() => startTransition(() => changePage({ type: 'Next' }))} />}
       {page === 1 && <MBGTI prob={prob} onOptionA={() => choose(true)} onOptionB={() => choose(false)} />}
       {page === 2 && <ResultPg rURL={gUrl} ytURL={vUrl} btnColor={btnColor} />}
