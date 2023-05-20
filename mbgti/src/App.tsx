@@ -166,6 +166,7 @@ function ResultPg({ rURL, ytURL, btnColor }: { rURL: string, ytURL: string, btnC
 }
 
 export default function App() {
+  // eslint-disable-next-line
   const [isPending, startTransition] = useTransition();
   const [page, changePage] = useReducer(pageReducer, 0)
   const [vUrl, setVUrl] = useState('');
