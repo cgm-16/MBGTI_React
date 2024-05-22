@@ -1,13 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
 
 @font-face {
-    font-family: 'Gmarket';
-    src: url("./GmarketSansTTFMedium.ttf");
-}
+    font-family: "Gmarket";
+    src: url("./Fonts/GmarketSansTTFMedium.ttf");
+  }
 
 @font-face {
-    font-family: 'GmarketBold';
-    src: url("./GmarketSansTTFBold.ttf");
+font-family: "GmarketBold";
+src: url("./Fonts/GmarketSansTTFBold.ttf");
 }
 
 body {
@@ -18,7 +18,6 @@ html {
     font-size: 62.5%;
 }
 
-/*start.html*/
 #start {
     margin-left: 10vw;
     width: 80vw;
@@ -50,7 +49,6 @@ html {
     -webkit-box-sizing: content-box;
 }
 
-/*mbgti.html*/
 #question {
     position: relative;
     width: 100vw;
@@ -118,7 +116,6 @@ html {
     text-align: left;
 }
 
-/*result.html*/
 #result {
     position: relative;
     width: fit-content;
