@@ -5,7 +5,7 @@ export const questionNumberState = atom({
     default: 0,
 });
 
-export const ansState = atom({
+export const ansState = atom<number[]>({
     key: 'ansState',
-    default: [] as boolean[],
+    default: [],
 });

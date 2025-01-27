@@ -3,9 +3,12 @@ import {
   btnColorState,
   gunLinkState,
   videoLinkState,
-} from "../States/AnswerStates";
+} from "../store/answerStates";
+import ShareButton from "./ShareButton"
 
-const ResultImg = ({ rURL }: { rURL: string }) => (
+
+
+const ResultImage = ({ rURL }: { rURL: string }) => (
   <img id="resultimg" src={rURL} alt={rURL} />
 );
 
@@ -41,21 +44,7 @@ const WatchFullLink = ({ btnColor }: { btnColor: string }) => (
   </a>
 );
 
-const ShareBtn = ({
-  id,
-  imgSrc,
-  clickAction,
-  altTxt,
-}: {
-  id: string;
-  imgSrc: string;
-  clickAction: React.MouseEventHandler;
-  altTxt: string;
-}) => (
-  <div id={id} onClick={clickAction}>
-    <img src={imgSrc} alt={altTxt} className="linkbtn" />
-  </div>
-);
+
 
 export default function ResultPg() {
   const rURL = useRecoilValue(gunLinkState);
@@ -89,7 +78,7 @@ export default function ResultPg() {
   return (
     <article id="result">
       <div id="results">
-        <ResultImg rURL={rURL} />
+        <ResultImage rURL={rURL} />
         <div id="playerbtnpoz">
           <ResultLink ytURL={ytURL} btnColor={btnColor} />
         </div>
@@ -97,27 +86,23 @@ export default function ResultPg() {
           <WatchFullLink btnColor={btnColor} />
         </div>
         <div id="sharebox">
-          <ShareBtn
+          <ShareButton
             id="fb"
-            imgSrc="./sharebtn/fb.png"
             clickAction={() => share(url_combine_fb, customOption)}
             altTxt="페이스북으로 공유하기"
           />
-          <ShareBtn
+          <ShareButton
             id="twt"
-            imgSrc="./sharebtn/twt.png"
             clickAction={() => share(url_combine_tw, customOption)}
             altTxt="트위터로 공유하기"
           />
-          <ShareBtn
+          <ShareButton
             id="nv"
-            imgSrc="./sharebtn/nv.png"
             clickAction={() => share(url_combine_naver)}
             altTxt="네이버로 공유하기"
           />
-          <ShareBtn
+          <ShareButton
             id="lk"
-            imgSrc="./sharebtn/link.png"
             clickAction={() => copylink()}
             altTxt="복사하기"
           />

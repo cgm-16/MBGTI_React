@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   RecoilRoot,
 } from 'recoil';
-import StartPg from './Components/Start';
-import MBGTI from './Components/Test';
-import ResultPg from './Components/Result';
+import Start from './components/Start';
+import MBGTI from './components/Test';
+import Result from './components/Result';
 
 
 export default function App() : JSX.Element {
@@ -12,9 +12,9 @@ export default function App() : JSX.Element {
     <RecoilRoot>
       <Router>
         <Routes>
-          <Route path="/" element={<StartPg />} />
+          <Route path="/" element={<Start />} />
           <Route path="/test" element={<MBGTI />} />
-          <Route path="/result" element={<ResultPg />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </Router>
     </RecoilRoot>

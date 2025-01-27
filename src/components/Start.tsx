@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import start from "../assets/images/bg/start.png"
 
-const StartBG = () => <img id="start" src="./bg/start.png" alt="" />;
+const StartBackground = () => <img id="start" src={start} alt="" />;
 
-const StartBtn = () => (
+const StartButton = () => (
   <Link
     to="/test"
     id="startbtn"
@@ -15,8 +16,8 @@ const StartBtn = () => (
 export default function StartPg() {
   return (
     <article id="startPg">
-      <StartBG />
-      <StartBtn />
+      <StartBackground />
+      <StartButton />
     </article>
   );
 }
