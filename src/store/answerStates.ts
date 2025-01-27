@@ -11,6 +11,6 @@ export const gunLinkState = atom({
 });
 
 export const btnColorState = atom({
-    key: 'gunLinkState',
+    key: 'btnColorState',
     default: '',
 });

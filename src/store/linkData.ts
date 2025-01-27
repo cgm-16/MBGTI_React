@@ -36,28 +36,6 @@ export const result: Result = new Map([
   ["yjy", {gunUrl: yjy, vidUrl: "https://youtu.be/B83dvSRcWWc?t=7896"}],
 ])
 
-export const gunUrls : urls = [
-  jdn,
-  "./results/jdy.png",
-  "./results/jjn.png",
-  "./results/jjy.png",
-  "./results/ydn.png",
-  "./results/ydy.png",
-  "./results/yjn.png",
-  "./results/yjy.png",
-];
-
-export const vidUrls : urls = [
-  "https://youtu.be/SxxbptHm_I0?t=11741",
-  "https://youtu.be/UvkbcAg-HmU?t=11069",
-  "https://youtu.be/SxxbptHm_I0?t=5262",
-  "https://youtu.be/UvkbcAg-HmU?t=3143",
-  "https://youtu.be/SxxbptHm_I0?t=1012",
-  "https://youtu.be/SxxbptHm_I0?t=1243",
-  "https://youtu.be/UvkbcAg-HmU?t=10647",
-  "https://youtu.be/B83dvSRcWWc?t=7896",
-];
-
 export const quizUrls : urls = [
   Question1,
   Question2,
