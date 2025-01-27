@@ -4,9 +4,7 @@ import {
   gunLinkState,
   videoLinkState,
 } from "../store/answerStates";
-import ShareButton from "./ShareButton"
-
-
+import ShareButton from "./ShareButton";
 
 const ResultImage = ({ rURL }: { rURL: string }) => (
   <img id="resultimg" src={rURL} alt={rURL} />
@@ -43,8 +41,6 @@ const WatchFullLink = ({ btnColor }: { btnColor: string }) => (
     시청하러 가기
   </a>
 );
-
-
 
 export default function ResultPg() {
   const rURL = useRecoilValue(gunLinkState);
@@ -85,28 +81,22 @@ export default function ResultPg() {
         <div id="pmpsbtnpoz">
           <WatchFullLink btnColor={btnColor} />
         </div>
-        <div id="sharebox">
-          <ShareButton
-            id="fb"
-            clickAction={() => share(url_combine_fb, customOption)}
-            altTxt="페이스북으로 공유하기"
-          />
-          <ShareButton
-            id="twt"
-            clickAction={() => share(url_combine_tw, customOption)}
-            altTxt="트위터로 공유하기"
-          />
-          <ShareButton
-            id="nv"
-            clickAction={() => share(url_combine_naver)}
-            altTxt="네이버로 공유하기"
-          />
-          <ShareButton
-            id="lk"
-            clickAction={() => copylink()}
-            altTxt="복사하기"
-          />
-        </div>
+        <ShareButton
+          id="fb"
+          clickAction={() => share(url_combine_fb, customOption)}
+          altTxt="페이스북으로 공유하기"
+        />
+        <ShareButton
+          id="twt"
+          clickAction={() => share(url_combine_tw, customOption)}
+          altTxt="트위터로 공유하기"
+        />
+        <ShareButton
+          id="nv"
+          clickAction={() => share(url_combine_naver)}
+          altTxt="네이버로 공유하기"
+        />
+        <ShareButton id="lk" clickAction={() => copylink()} altTxt="복사하기" />
       </div>
     </article>
   );
