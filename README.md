@@ -1,5 +1,26 @@
 # [MBGTI-React](https://mbgti-react.netlify.app/) [![Netlify Status](https://api.netlify.com/api/v1/badges/23f2b2dc-7550-4502-822d-75462eff3db7/deploy-status)](https://app.netlify.com/sites/mbgti-react/deploys)
 
-개발 기간: 2021. 05. ~ 2021. 05. + 2025. 01. ~ (Revision)
+## 설치
+```bash
+npm install
+```
 
-만든 목적: React 학습에 적합하다고 생각.
+## 실행
+```bash
+npm start
+```
+
+## 빌드
+```bash
+npm run build
+```
+
+## 사용 기술
+- React + TypeScript
+- Recoil 상태 관리
+- React Router DOM
+- Sass 스타일링
+
+## 개발 환경
+- Node.js 18 이상
+- Create React App(TypeScript)
